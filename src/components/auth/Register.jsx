@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Alert, Button, FloatingLabel, Form, Modal } from "react-bootstrap";
+import { useMutation } from "react-query";
 
 // API
 import { API } from "../../configs/api";
@@ -24,28 +25,30 @@ export default function Register({ show, setShow, setShowLogin }) {
     name: "",
   });
   // setup form register on change
-  function handleOnChange(e) {
+  const handleOnChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
-    setError("");
-  }
+  };
+
   // post form register on submit
-  async function handleOnSubmit(e) {
+  const handleOnSubmit = useMutation(async (e) => {
     try {
       e.preventDefault();
       const response = await API.post("/register", form);
+      console.log("register success : ", response);
       // switch to login
       changeModal();
     } catch (error) {
       // change state error text
-      setError("Email is Registered");
+      setError("Failed to Register");
+      console.log("register failed : ", error);
     }
-  }
+  });
   return (
     <Modal show={show} onHide={handleClose}>
-      <Form className="p-5" onSubmit={handleOnSubmit}>
+      <Form className="p-5" onSubmit={(e) => handleOnSubmit.mutate(e)}>
         <h2 className="text-left color-main fw-bold">Register</h2>
         {error !== "" ? (
           <Alert
