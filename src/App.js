@@ -64,10 +64,9 @@ export default function App() {
   return (
     <>
       {isLoading ? (
-        // <>
-        //   <LoadingPage />
-        // </>
-        null
+        <>
+          <LoadingPage />
+        </>
       ) : (
         <>
           <Header />

@@ -21,7 +21,7 @@ export default function Register({ show, setShow, setShowLogin }) {
   const [form, setForm] = useState({
     email: "",
     password: "",
-    fullname: "",
+    name: "",
   });
   // setup form register on change
   function handleOnChange(e) {
@@ -86,7 +86,7 @@ export default function Register({ show, setShow, setShowLogin }) {
             <Form.Control
               type="text"
               placeholder="Fullname"
-              name="fullname"
+              name="name"
               onChange={handleOnChange}
               required
             />
